@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean id="tcpService" class="beans.TCPService" init-method="start">
+       <property name="messageBuilder" ref="requestBuilder"/>
+       <property name="port" value="9090"/>
+   </bean>
+
+    <bean id="requestBuilder" class="beans.RequestBuilder">
+        <property name="dataMapper" value="dm"/>
+    </bean>
+
+    <bean id="dbc" class="beans.DBConnection">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost/my_schema?"/>
+        <property name="login" value="root"/>
+        <property name="password" value="36Dkr840"/>
+    </bean>
+
+    <bean id="dm" class="beans.DBDataMapperService" init-method="setConnection">
+        <property name="dbc" ref="dbc"/>
+    </bean>
+
+</beans>
